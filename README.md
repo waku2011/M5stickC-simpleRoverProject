@@ -11,7 +11,7 @@ This is very simple rover control project using M5stickC
 
 # Wiring
 ## M5StickC as Periferal (Controller)   
-- As Is
+- As Is :-)
 
 ## M5StickC as Central (on Rover)
-- ![Wiring](https://github.com/waku2011/figs/blob/master/wiring.png)
+![Wiring](https://github.com/waku2011/figs/blob/master/wiring.png)
