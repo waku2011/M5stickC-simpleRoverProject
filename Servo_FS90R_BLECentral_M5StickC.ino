@@ -18,12 +18,12 @@ static boolean doScan = false;
 static BLERemoteCharacteristic* pRemoteCharacteristic;
 static BLEAdvertisedDevice* myDevice;
 
-uint16_t val; 
+uint16_t val ; 
 
 int PINL = 0;  //signal pin G0 for Left servo
-int PWMCHL = 0;
+int PWMCHL = 0;  // Left index
 int PINR = 26; //signal pin G26 for Right servo
-int PWMCHR = 1;
+int PWMCHR = 1;  // Right index
 
 static void notifyCallback(
   BLERemoteCharacteristic* pBLERemoteCharacteristic,  uint8_t* pData,  size_t length,  bool isNotify) {
@@ -157,10 +157,10 @@ int sv2duty(int SV){    //  SV:-41...0...41
 }
 
 void setSpeed(int LR, int SV){ //  SV:-41...0...41
-    if (LR == 0) {
+    if (LR == PWMCHL) {  
       int duty = sv2duty(SV);
       ledcWrite(PWMCHL, duty);      
-    } else if (LR == 1){
+    } else if (LR == PWMCHR){
       int duty = sv2duty(SV);
       ledcWrite(PWMCHR, duty);     
     }
@@ -188,37 +188,37 @@ void backward(int SV){//  SV:-41...0...41
 
 // FL forwardLeftTurn
 void turnFL(int SV){//  SV:-41...0...41
-   setSpeed(0, -SV); 
-   setSpeed(1, SV/2);
+   setSpeed(0,  SV/2); 
+   setSpeed(1, -SV  );
 }
 // FR forwardRightTurn
 void turnFR(int SV){//  SV:-41...0...41
-   setSpeed(0, -SV/2); 
-   setSpeed(1, SV);
+   setSpeed(0,  SV); 
+   setSpeed(1, -SV/2);
 }
 
 // BL backwardLeftTurn
 void turnBL(int SV){//  SV:-41...0...41
-   setSpeed(0, SV); 
-   setSpeed(1, -SV/2);
+   setSpeed(0, -SV/2); 
+   setSpeed(1,  SV);
 }
 
 // BR backwardRightTurn
 void turnBR(int SV){//  SV:-41...0...41
-   setSpeed(0, SV/2); 
-   setSpeed(1, -SV);
+   setSpeed(0, -SV); 
+   setSpeed(1,  SV/2);
 }
 
 // LL leftTurn
 void stopTurnL(int SV){//  SV:-41...0...41
-   setSpeed(0, -SV); 
-   setSpeed(1, -SV);
+   setSpeed(0, -SV/2); 
+   setSpeed(1, -SV/2);
 }
 
 // RR RightTurn
 void stopTurnR(int SV){//  SV:-41...0...41
-   setSpeed(0, SV);
-   setSpeed(1, SV);
+   setSpeed(0, SV/2);
+   setSpeed(1, SV/2);
 }
 
 void loop() {

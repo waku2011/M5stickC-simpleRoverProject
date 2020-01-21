@@ -222,7 +222,7 @@ void loop() {
   }
   // controller mode
   else if  (modeA == CMODE) {  
-     int degNA = 15;
+     int degNA = 10;
      if (pitch > degNA) {
         if (roll > degNA) {
            cmd = "FR"; 
